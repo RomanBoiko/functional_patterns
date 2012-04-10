@@ -1,0 +1,358 @@
+\chapter{OO Patterns To Functional}
+
+\section{Purpose of Design Patterns - Intro}
+
+Design patterns can speed up the development process by providing tested, proven development paradigms. Effective software design requires considering issues that may not become visible until later in the implementation. Reusing design patterns helps to prevent subtle issues that can cause major problems and improves code readability for coders and architects familiar with the patterns.
+
+Often, people only understand how to apply certain software design techniques to certain problems. These techniques are difficult to apply to a broader range of problems. Design patterns provide general solutions, documented in a format that doesn't require specifics tied to a particular problem.
+
+In addition, patterns allow developers to communicate using well-known, well understood names for software interactions. Common design patterns can be improved over time, making them more robust than ad-hoc designs.
+
+To make intro I want to notice as well the common thing in most implementations forced by FP nature: we have to forget about encapsulation as all actions should be performed by utility functions, we can not bind method to data structure, which should confuse us at the beginning.
+
+
+\begin{table}
+    \begin{tabular}{ | l | p{10cm} |}
+        \hline
+        \hline
+        OOP Pattern & Comment \\
+        \hline
+        \hline
+            \cellcolor{green} Abstract Factory  & Natively supported with currying - we can configure function to create another functions with some property \\ \hline
+            \cellcolor{green} Builder  & implemented with utility functions \\ \hline
+            \cellcolor{green} Factory Method  & Summurized to FactoryFunction and described in Abstract Factory section \\ \hline
+            \cellcolor{green} Prototype & Language-agnostic as works on data-structure level \\ \hline
+            \cellcolor{green} Singleton  & very language agnostic and should not be supported by pure functional language. But in Erlang can be replaced with registered light-weight server \\ \hline
+        \hline
+    \end{tabular}
+    \caption{Summary: functional implementation of OO Creational patterns}
+\end{table}
+
+\begin{table}
+    \begin{tabular}{ | l | p{10cm} |}
+        \hline
+        \hline
+        OOP Pattern & Comment \\
+        \hline
+        \hline
+            \cellcolor{green} Adapter  & Adopts interace of existing function according to client's expectations \\ \hline
+            \cellcolor{green} Bridge  &  Same as Adapter in FP \\ \hline
+            \cellcolor{green} Composite  & Native language-specific tree-like data structures and utilities to work with them \\ \hline
+            \cellcolor{green} Decorator  & In FP - composition of functions. F1 wraps F2 and decorates/processes result of F2 invocation\\ \hline
+            \cellcolor{green} Facade  & Very similar in implementation to Adapter in FP but with different purpose \\ \hline
+            \cellcolor{red} Flyweight  & Couldn't be implemented efficiently in pure functional style as objects are immutable and are copied each time\\ \hline
+            \cellcolor{green} Proxy & In FP usually can be used for lazy evaluation only \\ \hline
+        \hline
+    \end{tabular}
+    \caption{Summary: functional implementation of OO Structural patterns}
+\end{table}
+
+\begin{table}
+    \begin{tabular}{ | l | p{10cm} |}
+        \hline
+        \hline
+        OOP Pattern & Comment \\
+        \hline
+        \hline
+            \cellcolor{green} Chain of responsibility  & List of first-class functions with same signatures \\ \hline
+            \cellcolor{green} Command  & Obvious - any function as it is first-class object \\ \hline
+            \cellcolor{green} Interpreter  & Simple in implementations as we have pattern matching and recursion built in language \\ \hline
+            \cellcolor{green} Iterator & External utility function specific to data structure, usually is not implemented as outstanding one but as part of recursive procedure-visitor\\ \hline
+            \cellcolor{green} Mediator & Simplest - same as Memento. Pure Functional - in next chapter \\ \hline
+            \cellcolor{green} Memento & The same idea with context as in State but client is saving history in stack\\ \hline
+            \cellcolor{green} Null Object & Specific to language \\ \hline
+            \cellcolor{green} Observer & Very similar to OO one \\ \hline
+            \cellcolor{green} State  & State in FP is not encapsulated, but should be present in both IN and OUT of function \\ \hline
+            \cellcolor{green} Strategy & Obvious - any function as it is first-class object \\ \hline
+            \cellcolor{green} Template method  & Implemented in static and dynamic variants \\ \hline
+            \cellcolor{green} Visitor & Most widely used in FP and has few natural forms and implementations \\ \hline
+        \hline
+    \end{tabular}
+    \caption{Summary: functional implementation of OO Behavioral patterns}
+\end{table}
+
+
+\section{Creational design patterns}
+This design patterns is all about class instantiation. This pattern can be further divided into class-creation patterns and object-creational patterns. While class-creation patterns use inheritance effectively in the instantiation process, object-creation patterns use delegation effectively to get the job done.
+\begin{itemize}
+	\item Abstract Factory [~\ref{subsection:pattern01}]
+	\item Builder [~\ref{subsection:pattern02}]
+	\item Factory Method [~\ref{subsection:pattern03}]
+	\item Prototype [~\ref{subsection:pattern05}]
+	\item Singleton [~\ref{subsection:pattern06}]
+\end{itemize}
+
+\subsection{Abstract Factory} \label{subsection:pattern01}
+AbstractFactory - creates an instance of several families of classes
+
+What is the abstract factory pattern, if not currying? We can pass parameter to a function once, to configure what kind of functions it would create in future.
+
+Currying is the process of transforming a function that takes multiple arguments into a function that takes just a single argument and returns another function if any arguments are still needed.
+
+So in example below we have "Abstract factory" which should convert two-arguments function to single-argument one if one argument should be constant.
+
+Two concrete factories(multiplyByConstantFunctionFactory and addConstantFunctionFactory) return functions which will multiply by/add constant passed to factory.
+
+An example is too verbose but just with aim to show similarity to OOP Abstract Factory.
+    \erllisting{code/01-AbstractFactory.erl}
+
+\subsection{Builder} \label{subsection:pattern02}
+Builder-Separates object construction from its representation
+
+The only difference between functional builder from listing below and OOP ones is that we need to pass constructed object to build utility functions each time and we have overhead copying attributes each time adding new one - as it is a payment for immutability.
+
+Builder methods "newDir", "newFile", "withName" and "withChildren" from listing are hiding structure of object behind them.
+    \erllisting{code/02-Builder.erl}
+
+We are building exactly the same composite structure as in listing ~\ref{listing:code/09-Composite.erl}, so you can check differences between direct structure fileds popullation and the same action made with Builder methods.
+
+\subsection{Factory Method} \label{subsection:pattern03}
+FactoryMethod - creates an instance of several derived classes. As in FP we don't have object's methods, it would be the same as any other "Factory" - please see [~\ref{subsection:pattern01}]
+
+\subsection{Prototype} \label{subsection:pattern05}
+Prototype - a fully initialized instance to be copied or cloned.
+
+As functions always return new immutable values our prototype in Functional language could be just a function which creates and fills data each time.
+
+As an alternative in Erlang we can simply create constant macros(-define(prototypename, value)) which will work as prototype. We can't modify the fields later anyway.
+    \erllisting{code/05-Prototype.erl}
+
+\subsection{Singleton} \label{subsection:pattern06}
+Singleton - a class of which only a single instance can exist.
+
+In functional paradigm there is no such thing as a singleton class as we have no state. The singleton is something of an anti-pattern here, so if we anyway need to do this, there is probably a better architecture. But we can emulate singleton in language-specific manner. For Haskell it would be state monad, for Erlang - lightweight process, which hangs in memory and continuously loops with one argument. Since this is done with message passing, it's safe for concurrent use. 
+
+In example you can see that I am trying to create singleton on module level, which represents single Connection object(for example for case when it is too expensive to create this connection or we are prohibited to create more than one at all):
+    \erllisting{code/06-Singleton.erl}
+
+\section{Structural design patterns}
+This design patterns is all about Class and Object composition. Structural class-creation patterns use inheritance to compose interfaces. Structural object-patterns define ways to compose objects to obtain new functionality.
+\begin{itemize}
+	\item Adapter [~\ref{subsection:pattern07}]
+	\item Bridge [~\ref{subsection:pattern08}]
+	\item Composite [~\ref{subsection:pattern09}]
+	\item Decorator [~\ref{subsection:pattern10}]
+	\item Facade [~\ref{subsection:pattern11}]
+	\item Flyweight [~\ref{subsection:pattern12}]
+	\item Proxy [~\ref{subsection:pattern14}]
+\end{itemize}
+
+\subsection{Adapter} \label{subsection:pattern07}
+Adapter - match interfaces of different classes
+
+In functional variant we can redefine Adapter pattern as one that will adapt parameters to the structure which mathces our existing function. In result we should be able to call existing procedures which have different type of input with the same argument using our Adapter.
+
+For instance, in next listing we are using adapter if we have list but existing function accepts only tuples.
+    \erllisting{code/07-AdapterFunctional.erl}
+
+This example is quite similar to Facade one but has different purpose. While in Facade we are hiding signatures and functions behind single interface, we use Adapter here when we have legacy functions with different signatures and we do want to pass same argument.
+
+\subsection{Bridge} \label{subsection:pattern08}
+Bridge - separates an object's interface from its implementation
+    \begin{itemize}
+        \item decouples an abstraction from its implementation so that the two can vary independently.
+        \item "Beyond encapsulation, to insulation" ~\cite{res9}
+    \end{itemize}
+"Hardening of the software arteries" has occurred by using subclassing of an abstract base class to provide alternative implementations. This locks in compile-time binding between interface and implementation. The abstraction and implementation cannot be independently extended or composed.
+
+Adapter makes things work after they're designed; Bridge makes them work before they are.
+
+But in FP we don't have hierarchy of functions, se the implementation of Bridge would be completely the same as in Adapter[~\ref{subsection:pattern07}]
+
+Exceptional case - monads, which can have hierarchy, are described in FP-specific patterns
+
+
+\subsection{Composite} \label{subsection:pattern09}
+Composite - a tree structure of simple and composite objects.
+
+I don't think we need to find analogy/implementation for functional languages. As in them we would onlyy need separate tree-like structure for data and separate util functions to operate with. For instance, in Erlang we have a lot of choices to make "Composite" based on lists ([1, [2, 3, 4], [5,6,7]]), tuples ({1, {2, 3, 4}, {5,6,7}}) or records:
+    \erllisting{code/09-Composite.erl}
+
+But this representation is too language-agnostic and doesn't have FP-specific theory underneath so I will skip wrapping record to module to have real composite with methods.
+
+
+\subsection{Decorator} \label{subsection:pattern10}
+    Decorator - add responsibilities to objects dynamically.
+
+We can use simple mathematical superset of functions, in which decorator function accepts decorated as param and additionally processes it's output:
+    \erllisting{code/10-Decorator.erl}
+
+\subsection{Facade} \label{subsection:pattern11}
+    Facade - a single class that represents an entire subsystem.
+
+In example below we are hiding underlying procedures printList and printTuples behind Facade function with constant interface.
+    \erllisting{code/11-Facade.erl}
+
+\subsection{Flyweight} \label{subsection:pattern12}
+    Flyweight - a fine-grained instance used for efficient sharing.
+
+Unfortunately, we can't implement same in FP because objects in FP are immutable and we will always copy them.
+
+The only possibility to make memory usage more efficient is to have associative array in which keys would be small id's and values would be expensive objects we want to represent. In this case we will win in space but loose in speed - we will need to lookup real objects from map in real time.
+
+\subsection{Proxy} \label{subsection:pattern14}
+    Proxy - an object representing another object.
+
+The big deal here is that you could potentially craft a function that's computationally expensive but the user of this function might not need all the results all at once. Example would be using these sorts of functions to obtain database records and to display them on a webpage
+
+So, naturally we can craft functions such that we can have lazy evaluation. 
+
+Lazy evaluation is usually implemented by encapsuling the expression in a parameterless anonymous function, called a thunk. For example, let's take a function when\_null(A, B, C) that returns B if A equals the null atom, otherwise C. 
+
+Like in an if statement we want B only be evaluated when A equals null otherwise we want to get C.
+    \erllisting{code/14-Proxy.erl}
+
+\section{Behavioral design patterns}
+This design patterns is all about Class's objects communication. Behavioral patterns are those patterns that are most specifically concerned with communication between objects.
+\begin{itemize}
+	\item Chain of responsibility [~\ref{subsection:pattern15}]
+	\item Command [~\ref{subsection:pattern16}]
+	\item Interpreter [~\ref{subsection:pattern17}]
+	\item Iterator [~\ref{subsection:pattern18}]
+	\item Mediator [~\ref{subsection:pattern19}]
+	\item Memento [~\ref{subsection:pattern20}]
+	\item Null Object [~\ref{subsection:pattern21}]
+	\item Observer [~\ref{subsection:pattern22}]
+	\item State [~\ref{subsection:pattern23}]
+	\item Strategy [~\ref{subsection:pattern24}]
+	\item Template method [~\ref{subsection:pattern25}]
+	\item Visitor [~\ref{subsection:pattern26}]
+\end{itemize}
+
+\subsection{Chain of responsibility} \label{subsection:pattern15}
+    ChainOfResponsibility - a way of passing a request between a chain of objects
+    \erllisting{code/15-ChainOfResponsibility.erl}
+
+\subsection{Command} \label{subsection:pattern16}
+    Command - encapsulate a command request as an object
+
+    What is the command pattern, if not an approximation of first-class functions? 
+
+In FP language, you'd simply pass a function as the argument to another function.
+        \erllisting{code/16-Command.erl}
+
+    In an OOP language, you have to wrap up the function in a class, which you can instantiate and then pass that object to the other function.
+        \javalisting{code/16-Command.java}
+
+    The effect is the same, but in OOP it's called a design pattern, and it takes a whole lot more code.~\cite{res5}
+
+\subsection{Interpreter} \label{subsection:pattern17}
+    Interpreter - a way to include language elements in a program.
+
+See also example of Visitor[~\ref{subsection:pattern26}] - interpret() function taken from there 
+    \erllisting{code/17-Interpreter.erl}
+    %\javalisting{code/17-Interpreter.java}
+
+\subsection{Iterator} \label{subsection:pattern18}
+    Iterator - sequentially access the elements of a collection
+    \erllisting{code/18-Iterator.erl}
+
+\subsection{Mediator} \label{subsection:pattern19}
+    Mediator - defines simplified communication between classes. 
+    
+In OO Mediator is statefull and can process calls from clients using it's current state. In FP we should use "Inversion of Control" - we are never saving context(state) inside function but always injecting - retrieving it from Fun. In this case the simplest Mediator in FP would look like Memento[~\ref{subsection:pattern20}]. But I will show another example of FP-specific "Mediator" in pure functional patterns, which will use Monad.
+
+\subsection{Memento} \label{subsection:pattern20}
+    Memento - captures and restores an object's internal state. 
+
+In example I am using the same approach and functions as in State example([~\ref{subsection:pattern23}]), but a bit adopted. To be able to recover state/redo actions I am saving contexts(=function results, =states) in history stack, so using Memento description terminology from GoF, I am "Caretaker". Like in State example, it is possible only if function I am using is accepting and returns similar Context objects, which I am using as Memento states.
+    \erllisting{code/20-Memento.erl}
+
+\subsection{Null Object} \label{subsection:pattern21}
+NullObject - designed to act as a default value of an object. 
+
+In FP would be very language-agnostic as depends on data representation.
+
+Example shown for Erlang - constant NullObject to substitute Record value. Will help if function have to return null, but we don't wont client code to check on null result each time or crash trying to process null result
+    \erllisting{code/21-NullObject.erl}
+
+\subsection{Observer} \label{subsection:pattern22}
+    Observer - a way of notifying change to a number of classes. In FP - our observed function should be responsible for notification of number of registered observers. 
+    \erllisting{code/22-Observer.erl}
+
+\subsection{State} \label{subsection:pattern23}
+    State - alter an object's behavior when its state changes. 
+    
+    We are changing faunction behaviour in same way - depending on context(State pattern's terminology), using matching ability. In example below - user interacts with Snack machine. Machine is reacting on current state and instructs user what to do next.
+    \erllisting{code/23-State.erl}
+
+\subsection{Strategy} \label{subsection:pattern24}
+    Strategy - encapsulates an algorithm inside a class. In case of Functional Paradigm we don't need to create separate wrapper like class if we want to write algorithm - it would be just new function, which we can pass as argument(as it is first-class object). See Command[~\ref{subsection:pattern16}] as well
+
+\subsection{Template method} \label{subsection:pattern25}
+    TemplateMethod-Defer the exact steps of an algorithm to a subclass
+
+    We usually use the TemplateMethod pattern too much.
+    When we see a duplicated algorithm, it seems that the natural tendency is to push up the skeleton into a superclass.
+    This creates an inheritance relationship within the algorithm, which in turn makes it harder to change.
+    Later, when we do need to change the algorithm, we have to change the superclass and all of the subclasses at the same time.
+    For example, one particular superclass contained three or four template methods, which made the subclasses look quite odd;
+    and each little complex of template-plus-overrides significantly hampered design change in each of the others.
+    Why? Is it the cost of extra classes, or my mathematical background, or coding habits ingrained before the rise of object-oriented languages?
+    So, note to self: If we need to make more than one template method in class - we should rather break out State/Strategy objects instead of relying on TemplateMethod.~\cite{res23}
+    
+    Template method pattern mandates that the *template method* must model the invariant part of the algorithm, while the concrete classes will implement the variabilities that will be called back into the template method. While the pattern encourages implementation inheritance, which may lead to unnecessary coupling and brittle hierarchies, the pattern has been used quite effectively in various frameworks developed over times.
+
+    Outside the OO world, template method pattern has been put to great use by many programming languages and frameworks. In many of those applications, like many of the other design patterns, it has been subsumed within the language itself. Hence its usage has transcended into the idioms and best practices of the language itself.~\cite{res24}
+
+    !!!In languages that support higher order functions, template methods are ubiquitous, and used as a common idiom to promote framework style reusability. Languages like Haskell allow you to do more advanced stuff in the base abstraction through function composition and monadic sequencing, thereby making the invariant part more robust in the face of implementation variabilities. Even with IoC frameworks like Spring, template methods promote implementing monadic combinators (to the extent you can have in OO without HOF) that result in autowiring and sequencing operations.
+    \erllisting{code/25-TemplateMethodStatic.erl}
+
+    Higher Order Template Methods through Message Passing
+
+    Template method pattern has two distinct aspects that combine to form the wholeness of the pattern - the commonality of the algorithm described by the base class and the concrete variabilities being injected by the derived implementations. Replace class by module and we have some great examples in Erlang / OTP Framework using asynchronous message passing
+    \erllisting{code/25-TemplateMethodDynamic.erl}
+
+    Erlang implements variability through message passing, dynamic typing and dynamic hot swapping of code. Isn't this some template method on steroids ? But teh Erlang people never call it by this name. This is because, it is one of the most common idioms of Erlang programming. Only difference with OO is that in some other languages, the pattern gets melded within the language syntax and idioms.
+
+
+    But-
+    HOFs are more like the strategy pattern than the template method pattern. Template methods are a form of static composition while HOFs are based on dynamic composition.
+
+    Answer-
+    In a language that supports HOFs, the difference between Strategy and Template Method goes away. In fact in Java also, we can design Strategy as a Template Method.
+
+\subsection{Visitor} \label{subsection:pattern26}
+    Visitor-Defines a new operation to a class without change
+
+
+    One of the most powerful things in functional languages is Pattern Matching. Apparently, it's a key-feature in functional paradigm because it facilitates definition of recursive functions in a way that maps closely to functions in lambda calculus.~\cite{res3}
+
+    Let's define an abstract class to represent math expressions, and three implementations to represent numbers, sum operation, and product operation.
+
+    For example, the math expression "1 + (2 x 3)" can be composed using the expression record as follows:
+    {1, '+', {2, '*', 3}}
+    Here are examples of using them on Expression:
+    evaluate(Expr) outputs 7
+    print(Expr) outputs (1+(2*3))
+
+    Let's try to apply PatternMatching to solve the problem in Erlang
+    \erllisting{code/26-VisitorMatching.erl}
+
+    Now in Java, how would this have been implemented with the Visitor Pattern?
+    \javalisting{code/26-Visitor.java}
+
+    So we can look at pattern matching as for thing, which provides another way of accomplishing the goals of the Visitor Pattern.
+
+    As you can see, each matching statement in the Erlang example maps to a visit method in the Java example. So, another way of looking at the Visitor Pattern is that it's simply a special case of pattern matching, which matches only on the type of method parameters.
+
+    Of course, if we add a new expression type in Java, such as Div, we have to add a new visit method for that type in every visitor. Likewise, to handle Div in Erlang, we would also have to add a new matching statement in every Erlang visitor that works with expressions. This is a famous trade-off for using the Visitor Pattern as it enables you to define new operations easily, but makes it difficult to add new types to visit.
+
+
+\section{Criticism}
+
+The concept of design patterns has been criticized by some in the field of computer science.~\cite{res9}
+
+\begin{itemize}
+	\item \textbf{Targets the wrong problem.}
+		The need for patterns results from using computer languages or techniques with insufficient abstraction ability. Under ideal factoring, a concept should not be copied, but merely referenced. But if something is referenced instead of copied, then there is no "pattern" to label and catalog. Paul Graham writes in the essay Revenge of the Nerds. Peter Norvig provides a similar argument. He demonstrates that 16 out of the 23 patterns in the Design Patterns book (which is primarily focused on C++) are simplified or eliminated (via direct language support) in Lisp or Dylan.
+
+	\item \textbf{Lacks formal foundations.}
+		The study of design patterns has been excessively ad hoc, and some have argued that the concept sorely needs to be put on a more formal footing. At OOPSLA 1999, the Gang of Four were (with their full cooperation) subjected to a show trial, in which they were "charged" with numerous crimes against computer science. They were "convicted" by 2/3 of the "jurors" who attended the trial.
+
+	\item \textbf{Leads to inefficient solutions.}
+		The idea of a design pattern is an attempt to standardize what are already accepted best practices. In principle this might appear to be beneficial, but in practice it often results in the unnecessary duplication of code. It is almost always a more efficient solution to use a well-factored implementation rather than a "just barely good enough" design pattern.
+
+	\item \textbf{Does not differ significantly from other abstractions.}
+		Some authors allege that design patterns don't differ significantly from other forms of abstraction, and that the use of new terminology (borrowed from the architecture community) to describe existing phenomena in the field of programming is unnecessary. The Model-View-Controller paradigm is touted as an example of a "pattern" which predates the concept of "design patterns" by several years. It is further argued by some that the primary contribution of the Design Patterns community (and the Gang of Four book) was the use of Alexander's pattern language as a form of documentation; a practice which is often ignored in the literature.
+\end{itemize}

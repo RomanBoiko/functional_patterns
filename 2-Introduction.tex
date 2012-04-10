@@ -1,0 +1,97 @@
+\chapter{Introduction}
+\label{chap:intro}
+
+\begin{munquote}%
+For refactoring to be valuable it must be going somewhere, not just an abstract intellectual exercise. Patterns document program structures with known good properties. Put the two together and you have Refactoring to Patterns.%
+\end{munquote}
+\hfill ---Kent Beck, Director, Three Rivers Institute
+
+Today it is realy hard to find software developer who hadn't heard about design patterns and refactoring techniques.
+This terms became very popular few years ago and are very widely used in modern software development.
+The formal dfinition of this tems is the next:
+\begin{itemize}
+	\item A design pattern is a general solution to a common problem in software design. It should systematically name, motivate and explain the problem, the solution, when to apply the solution, and its consequences. This solution might be customized and implemented to solve the problem in a particular context.~\cite{res13}
+	\item Refactoring is a disciplined technique for restructuring an existing body of code, altering its internal structure without changing its external behavior. Its heart is a series of small behavior preserving transformations. Each transformation (called a 'refactoring') does little, but a sequence of transformations can produce a significant restructuring. Since each refactoring is small, it's less likely to go wrong. The system is also kept fully working after each small refactoring, reducing the chances that a system can get seriously broken during the restructuring.~\cite{res14}
+\end{itemize}
+
+When I tried to sound my subject for thesis the first time a lot of my friends and advisors were worried that I am trying to mix in one study two quite different topics. but this is a half-true that this topics differ so much. There is a natural relation between patterns and refactorings. "Patterns are where you want to be; refactorings are ways to get there from somewhere else".~\cite{res11}
+
+Refactoring to Patterns is the marriage of refactoring - the process of improving the design of existing code -- with patterns, the classic solutions to recurring design problems. Refactoring to Patterns suggests that using patterns to improve an existing design is better than using patterns early in a new design. This is true whether code is years old or minutes old. We improve designs with patterns by applying sequences of low-level design transformations, known as refactorings. 
+
+The main ideas in gathering both Refactoring and Patterns in same study were the next:
+\begin{itemize}
+	\item refactor to Patterns when appropriate and away from Patterns when something simpler is discovered
+	\item use Patterns to communicate intention
+	\item know and continue to learn a large body of Patterns
+	\item understand how to implement Patterns in simple and sophisticated ways
+	\item use Patterns to clean, condense, clarify and simplify code
+	\item evolve designs
+\end{itemize}
+
+The idea of Refactoring To Patterns of course is not new itsef - it had a long history with it's own classical authors and materials, the first in this queue is fundamental book of Joshua Kerievski~\cite{res11}. As the essential Gang of Four book says, "Design Patterns... provide targets for your refactorings."~\cite{res14} 
+
+The answer for question "so what is than new in your work?" would be the second part of subject - we are trying to bring/apply our knowledge and experience to Functional world.
+
+I remember when I heard the first time at second year of study about patterns and read few articles about it - I was very delighted with this new world and interesting methods of code organization and become very enthusiastic about patterns.
+The problem which really caused me to choose the subject for thesis is that when "Refactoring" term is quite general and can be easily applied to any language/paradigm, "Design Patterns" in our mind is very closely associated with Object-Oriented paradigm, and here is why.
+
+Design patterns gained popularity in computer science after the book "Design Patterns: Elements of Reusable Object-Oriented Software" was published in 1994 by the so-called "Gang of Four" (Gamma et al.). That same year, the first Pattern Languages of Programming Conference was held and the following year, the Portland Pattern Repository was set up for documentation of design patterns. From another side we had perfect work of XP-creator Kent Back about patterns in Smalltalk.
+Since that time design patterns where very popular subject for different researches, discussions and pulications, they had a lot of heads involved and thats why the topic was developed very quickly and have now a huge base.
+
+But the problem was that most of this researches and publications were about implementation and application of patterns/refactoring to Object-Oriented paradigm. It was most popular and authors used it as primary in their work. Other paradigms had no such careful attention, and it is black side of OOP monopolism in enterprise application development.
+
+I always have been a loyal supporter of functional paradigm, so I aways wanted to have this gap filled at least in this paradigm.
+Historically, functional programming languages have not been very popular for various reasons. Recently, however, a few of these languages are entering the computer industry. 
+
+As software becomes more and more complex, it is more and more important to structure it well. Well-structured software is easy to write, easy to debug, and provides a collection of modules that can be re-used to reduce future programming costs. Conventional languages place conceptual limits on the way problems can be modularised. Functional languages push those limits back.
+In order to do classic patterns in functional languages we should escape from OO paradigm limitations. As well we should have new patterns suggested by functional languages.
+
+After developing for over four years in Java and Perl, I was pretty comfortable with best practices for creating applications in OO languages.
+When I tried to create my first application in Erlang(am not taking into account Lisp samples written during very short academic course), I ran into all sorts of problems. I couldn't figure out how to create table rows in a loop, or append values to a string, or to do two statements in one call. You can feel it even trying to write any complex XSLT with parsing and recursion. 
+
+But I have realized that what I was trying to do was use an OO approach in a functional programming language. There were fundamental differences between the two approaches, and not until I made the paradigm shift was I able to become proficient. The phrase "paradigm shift" is used a lot in programming, and I suppose sometimes it is justified. It actually helped me to understand OO better, since I was able to contrast the two approaches.
+
+The history of Object-Oriented and Functional programming shows that they came from two different branches of the programming language tree. Functional is its own main branch with a venerable history going back to Lisp and the Lambda calculus. On the other hand OO is apparently and offshoot of procedural programming. I believe the second is a coincidence of history and the development of ideas. Today we see the beginnings of a growing together of Functional and OO programming.
+
+Another idea is that to make functional paradigm more popular and widely used we need to involve to it a part of experienced OOP "Coryphaeus". Because functional programming encompasses a very different way of composing programs, programmers who are used to the imperative paradigm can find it difficult to learn.
+So I think that it would be very useful to show comparison/make mapping between well-known OOP design patterns and functional analogues, and to create last ones if we require that.
+
+In process of making such comparison we would find out problems and gaps of each paradigm in regard to patterns and refactoring techniques.
+Hope it would be helpful for students as well when they try to learn course in functional languages. As at such courses we usually do not have time to look at FP in depth, and are onlu learning basic syntax. This fact causes us not to think about FP as something which can be used in real life, in production.
+But as far as most of students are aware of OOP design principles and patterns, it would be interesting for them to find out that the same problems/tasks can be solved in functional languages in much easier and straight-forward way. 
+
+To support this idea I have included to my thesis two parts:
+\begin{itemize}
+	\item comparison of well-known design patterns and refactoring methods from object-oriented paradigm to functional approach
+	\item description of my open-source project(XSLT transformer in Erlang) as an example of production-value library in functional language which was written with help of patterns and refactoring.
+\end{itemize}
+
+So the objectives of the study were:
+\begin{itemize}
+	\item to collect in one research a set of methods of functional code refactoring using design patterns
+	\item to find out whether mathematical theory can be applied to the most "mathematical" programming paradigm with aim to create common design solutions/optimise functional code
+	\item to make a comparison of well-known design patterns from object-oriented paradigm to functional approach
+	\item to create utility for making XSLT transformations which is missed in current Erlang/OTP distribution
+\end{itemize}
+
+The "XSLT Transformer in Erlang" project was chosen as far as we don't have tool for XSLT transformations in native Erlang and it is one of the most requested features in Erlang community.
+
+Erlang is a general-purpose pure functional, concurrent, garbage-collected programming language with dynamic typing. It is used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance.
+
+There are a lot of libraries and addons written in and for Erlang, but we still do not have native XSLT transformer written in erlang to apply XSL stylesheets to XML documents. Current solutions are based on adapters to C++ - transformers which brings a set of problems and restrictions(we need to install native system libraries, specific to platform so our erlang app is not platform-independant any more, we depend on version of external library which could be not supported any more, it is slow as we need inter-languages communication throughout erlang virtual machine and we loose our benefits of fault talerancy and internal concurrency model support).
+
+In native Erlang we have set of functions for working with XML/XPATH evaluation(xmerl package), so our XSLT transformer is using this library for underlying transformation.
+XSLT (Extensible Stylesheet Language Transformations) is a declarative, XML-based language used for the transformation of XML documents.
+So to write XSLT transformer in functional language means "to write interpreter for functional/declarative language in functional language", which brings additional challange to work.
+
+In process of my work on thesis I found that "Patterns" that are widely used in one paradigm may be invisible, trivial or built in as native in another paradigm, so I agree with statement made in ~\cite{res12}, where author claims that "Patterns are created often as attempt to bring another-paradigm feature to language"
+Yes patterns might be a sign of weakness, but they might be a sign of simplicity. There is a trade-off between putting something in your programming language and making it be a convention, or perhaps putting it in the library.
+
+When we identify and document one, that should not be the end of the story. Rather, we should have the long-term goal of trying to understand how to improve the language so that the pattern becomes invisible or unnecessary.
+But on other side, no matter how complicated your language will be, there will always be things that are not in the language. These things will have to be patterns. So, we can eliminate one set of patterns by moving them into the language, but then we'll just have to focus on other patterns. We don't know what patterns will be important 50 years from now, but for sure programmers will still be using patterns of some sort.
+
+We have this situation already. At the very beginning of "Design Patterns Boom" we had only quite low-level structural, creational and behavioral patterns. In contrast now we already have a number of groups of high-level design and architecture patterns(Integration patterns~\cite{res22}, Workflow Patterns, Patterns for Distributed Processing, Enterprise Patterns, so on). 
+
+In the same sense that comprehensive application frameworks support larger-scale reuse of design and code than do stand-alone functions and class libraries, pattern languages will support larger-scale reuse of software architecture and design than individual patterns. Developing comprehensive pattern languages is challenging and time consuming, but will provide the greatest payoff for pattern-based software development during the next few years. And it is extremely important to develop patterns and create standarts in Functional languages, as they are a future of large-scale, fault-tolerant applications, cloud computing and non-relational data storages.
+
+

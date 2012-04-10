@@ -1,0 +1,24 @@
+\chapter{Patterns And Refactoring In Project}
+
+The initial idea of project was to create utility to make XSLT transformations, which is missed in current Erlang/OTP distribution
+
+The "XSLT Transformer in Erlang" project was chosen as far as we don't have tool for XSLT transformations in native Erlang and it is one of the most requested features in Erlang community.
+
+Erlang is a general-purpose pure functional, concurrent, garbage-collected programming language with dynamic typing. It is used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance.
+
+There are a lot of libraries and addons written in and for Erlang, but we still do not have native XSLT transformer written in erlang to apply XSL stylesheets to XML documents. Current solutions are based on adapters to C++ - transformers which brings a set of problems and restrictions(we need to install native system libraries, specific to platform so our erlang app is not platform-independant any more, we depend on version of external library which could be not supported any more, it is slow as we need inter-languages communication throughout erlang virtual machine and we loose our benefits of fault talerancy and internal concurrency model support).
+
+This existing solutions are:
+\begin{itemize}
+	\item \textbf{XMERL} - native erlang library with functions for exporting XML data to an external format.
+	\item \textbf{ErlXSL} - the aim of this project is to provide a usable binding for Erlang to call native XSLT processors - alpha 
+	\item \textbf{Sablotron} - an adapter for a C++ XSL processor (sablotron) that allows Erlang programmers to perform transformations of XML data (binary or file) using an XSL stylesheet (binary or file).
+\end{itemize}
+
+In native Erlang we have set of functions for working with XML/XPATH evaluation(xmerl package), so our XSLT transformer is using this library for underlying transformation.
+
+XSLT (Extensible Stylesheet Language Transformations) is a declarative, XML-based language used for the transformation of XML documents.
+
+So to write XSLT transformer in functional language means "to write interpreter for functional/declarative language in functional language", which brought additional challange to work.
+
+The project was developed using defined in previous sections patterns and their occurences were documented well, which you can found in source added to this thesis.

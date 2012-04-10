@@ -1,0 +1,62 @@
+\chapter{Review of the Literature and Research}
+\label{chap:literature}
+
+\section{The most fundamental works}
+For current moment we have no any book on patterns in Functional programming or group of authors who are the law-makers in this topic.
+The only author who is making a try on gathering functional techniques in single dictionary/book is professor Jeremy Gibbons, who is an academic in the Computing Laboratory at Oxford University, specializing in programming languages and editor of "Journal of Functional Programming"
+He is in progress of writing book "Patterns in Functional Programming", about patterns of computation in functional programming. This is his sabbatical project for the academic year 2010/2011. But it is not finished yet and not seams that the progress is good as last record on his blog about the book~\cite{res21} dated by summer.
+But he has quite interesting articles about accumulations on data structures, which distribute information across the data structure. List instances are familiar from the Haskell standard libraries, and professor Gibbons presents instances for a variety of tree datatypes; and the later work was about making it datatype-generic.
+
+The most exciting article to my mind is "Functional Programming For The Rest of Us"~\cite{res1} by Slava Akhmechet.
+In this article he explains the most widely used ideas from functional languages using examples written in OO language(Java)
+Author claims that functional languages are extremely expressive and in a functional language one does not need design patterns because the language is likely so high level, you end up programming in concepts that eliminate design patterns all together.
+Author also tries to apply mathematical theory to FP, as functional programming is a practical implementation of Alonzo Church's ideas. He says that not all lambda calculus ideas transform to practice because lambda calculus was not designed to work under physical limitations. Therefore, like object oriented programming, functional programming is a set of ideas, not a set of strict guidelines. Lambda calculus was designed to investigate problems related to calculation. Functional programming, therefore, primarily deals with calculation, and uses functions to do so. A function is a very basic unit in functional programming. But it is hard to apply most of mathematical theory to FP. The problems are in article and the main question is "Why is the universe described with mathematical laws? Can all of the phenomena of our universe be described by mathematics?"
+
+\section{Works supporting idea that we don't need patterns in FP}
+Further there is a number of different discussions which I want to mention and which support the idea that we don't need analogues of OOP patterns in FP as most of them are already build in languages.
+
+For instance, Mark Jason Dominus(a leading Perl programmer) tries to prove that patterns are language-agnostic~\cite{res12} and that "Patterns" that are used recurringly in one language may be invisible or trivial in a different language
+
+Also there is a very interesting discussion on StackOverflow("Does Functional Programming Replace GoF Design Patterns?")~\cite{res5}
+Different authors there agree that if a problem exists in OOP languages, which does not exist in FP languages, then clearly that is a shortcoming of OOP languages. The problem can be solved, but the language does not do so, so we require a bunch of boilerplate code in form of pattern to work around it. But they are at the same time joking that they want in this case to have  programming language which will magically make all problems go away. Any problem that is still there is in principle a shortcoming of the language.
+At the same time they mention a lot of useful ideas like that the main features of functional programming include functions as first-class values, currying, immutable values, etc. and it doesn't seem obvious that OO design patterns are approximating any of those features.
+Also it sounds that FP doesn't eliminate the need for design patterns. The term "design patterns" just isn't widely used to describe the same thing in FP languages. But they exist. Functional languages have plenty of best practice rules of the form "when you encounter problem X, use code that looks like Y", which is basically what a design pattern is. So FP has its design patterns too, people just don't usually think of them as such. And unfortunately the functional programming community do not come up with as communicative pattern names as the object-oriented programming community.
+However, they agree that a lot of OOP-specific design patterns are pretty much irrelevant in functional languages. And if another language can solve the same problem trivially, that other language won't have need of a design pattern for it. Users of that language may not even be aware that the problem exists, because it's not a problem in that language.
+When you work in a FP language, you no longer need the OOP-specific design patterns. But you still need some general design patterns, like MVC or other non-OOP specific stuff, and you need a couple of new FP-specific "design patterns" instead. All languages have their shortcomings, and design patterns are usually how we work around them.
+An article "Scala's Pattern Matching = Visitor Pattern on Steroids"~\cite{res3} attempts to prove this as well by showing built-in ability of scala's features to create Visitor. It describes PatternMatching as a key-feature in functional programming languages because it facilitates definition of recursive functions in a way that maps closely to functions in lambda calculus. Author of article says that another way of looking at the Visitor Pattern is that it's simply a special case of pattern matching, which matches only on the type of method parameters. And it  doesn't require all the boiler-plate code for the Visitor Pattern (e.g. Visitor superclass and double-dispatch accept method on expressions)
+
+\section{Existing descriptions of FP patterns}
+About attempts to treat some FP techniques as patterns the most useful article for me was ~\cite{res15}, where Peter Norvig describes his view of design patterns in dynamic languages, and shows examples how to write classical patterns in dynamic languages, apparently there are some examples in Lisp.
+Another interesting one is ~\cite{res6} - where author describes FP patterns he found as usable and which refactorings can be done to implement this patterns:
+
+\begin{itemize}
+	\item Structural Recursion
+	\item Interface Procedure
+	\item Mutual Recursion
+	\item Accumulator Variable
+	\item Syntax Procedure
+	\item Local Procedure
+	\item Program Derivation
+\end{itemize}
+
+I will make an overview of them in next chapter.
+
+\section{OOP And FP Cooperation}
+Furthermore there are resources that propagate idea of close cooperation of OOP and FP.
+The on of them is site~\cite{res8} about Workshop MPOOL - the first Multiparadigm Programming with Object-Oriented languages workshop. MPOOL was created out of the need to bring together people who try to use or extend object-oriented tools in ways inspired by different programming paradigms, functional at most. The organizators claim that different paradigms roughly correspond to different communities and it is often the case that programming tools, concepts, and methodologies remains isolated in a single community because of lack of communication. So communication across paradigm-based communities is certainly hard - often the common background and vocabulary is limited. Nevertheless, they have found that the interaction of different paradigms can be very fruitful.
+Also I really want to mention the article "Patterns vs. Higher Order Functions"~\cite{res18}.
+Author suggests that objects can be used to simulate higher order functions[FP], and believes the connection is more fundamental. He considers the concept of class and function to be synonymous. OO programming has traditionally lacked the power and flexibility provided by functional languages in relation to functions. However, these powers are not in conflict with OO and so there is no reason they shouldn't be added to the OO perspective.
+In addition to considering class and functions synonymous, he defines object as the environment resulting from the invocation of a function.
+FP has traditionally handled immutable models while OO handles mutable ones. So author believes they are complementary, and OO can bring way to incorporate mutability into to functional programming. As well as functional programming is the correct way to integrate immutability into OO programming. What remains is to discover the interconnections and interplay between these two concepts.
+
+\section{Refactoring and code structure in FP}
+There is also a number of publications influence of FP on refactoring methods and code structure.
+"How does functional programming affect the structure of your code?"~\cite{res4}, for instance, describes the specific braught by F\#(functional language for .NET platform) to project. Microsoft lead developer says that functional programming affects the structure on a number of levels.  "FP's influence is weakest "in the large"; at this level, the structure of the problem itself dominates, and FP's influence comes mostly shaping one's thinking about architectures or high-level designs. FP's influence is more apparent "in the medium", where the design of some APIs can be simplified � sometimes dramatically in a few specific domains that are especially well-suited to FP. FP differentiates itself the most "in the small" � this is the level where computations happen, this is level where the majority of code (for programs of all sizes) is written, this is where most FP-specific constructs take hold."
+
+The very  detailed fundamental article "Why Functional Programming Matters"~\cite{res19} by John Hughes - is indeed must-to-read for every FP developer, even though it was written in 80-th. Author mentions that software becomes more and more complex and so it is more and more important to structure it well. Well-structured software is easy to write, easy to debug, and provides a collection of modules that can be re-used to reduce future programming costs. Conventional languages place conceptual limits on the way problems can be modularised. Functional languages push those limits back. In this paper he shows that two features of functional languages in particular, higher-order functions and lazy evaluation, can contribute greatly to modularity.
+"Since modularity is the key to successful programming, functional languages are vitally important to the real world."
+
+And more modern follow-up to that article "Why 'Functional Programming Matters' matters"~\cite{res20} give us explanation of old one in modern view.
+The great advantage of FP is that programs in it are factored more purely, and the factors are naturally along the lines of responsibility. The author defines "Factoring of program" as the act of dividing it into units that are composed to produce the working software. Factoring happens as part of the design. (Re-factoring by him is the act of rearranging an existing program to be factored in a different way). The most important precondition for refactoring is that programs can be factored in orthogonal ways. The article's value is that it expresses an opinion about what makes programs better. It backs this opinion up with reasons why modern functional programming languages are more powerful than imperative programming languages. 
+And at the end we see the suggestion that even if we don't plan to try functional programming tomorrow, the lessons about better programs are valuable for your work in any language today.
+"That's why Why Functional Programming Matters matters."

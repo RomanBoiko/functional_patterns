@@ -1,0 +1,66 @@
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+\section{Patterns usage}
+
+The main part of my work was to define and describe patterns and common solutions in functional languages.
+That was driven by idea which was brought from Object-Oriented ones. During my attempts to port solutions from OOP I made a conclusion that fits idea claimed by Christopher Alexander - one of pioneers of common OOP design decisions:
+
+PATTERNS ARE LANGUAGE AND PARADIGM AGNOSTIC(he claims to that as well).
+
+In general, I would say that specific patterns are continuously being eliminated by new (or just rising-in-popularity) language features. This is the natural way of language design development; as languages become more high-level, abstractions that could previously only be called out in a book using examples now become particular language feature or library.
+As an example - Prototype; while it is a fundamental notion of JavaScript, it has to be implemented from scratch in other languages.
+
+"Patterns" that are used recurringly in one language may be invisible or trivial in a different language.
+Therefore patterns are signs of weakness in programming languages.
+
+When we identify and document one, that should not be the end of the story. Rather, we should have the long-term goal of trying to understand how to improve the language so that the pattern becomes invisible or unnecessary.
+
+So nevertheless this work was not done without outcome, it gave us understanding of what could be added/fixed in existing pure languages, both OOP and FP ones.
+
+Identification of patterns is an important driver of progress in programming languages. As in all programming, the idea is to notice when the same solution is appearing repeatedly in different contexts and to understand the commonalities. This is admirable and valuable. The problem with the "Design Patterns" movement is the use to which the patterns are put afterward: programmers are trained to identify and apply the patterns when possible. Instead, the patterns should be used as signposts to the failures of the programming language. As in all programming, the identification of commonalities should be followed by an abstraction step in which the common parts are merged into a single solution.
+
+Multiple implementations of the same idea are almost always a mistake in programming and breaks the golden DRY rule ("Don't Repeat Yourself"). The correct place to implement a common solution to a recurring design problem is in the programming language, if that is possible.
+
+The stance of the "Design Patterns" movement seems to be that it is somehow inevitable that programmers will need to implement Visitors, Abstract Factories, Decorators, and Facades. But these are no more inevitable than the need to implement Subroutine Calls or Object-Oriented Classes in the source language. These patterns should be seen as defects or missing features in Java and C++. The best response to identification of these patterns is to ask what defects in those languages cause the patterns to be necessary, and how the languages might provide better support for solving these kinds of problems.
+
+People say that it's all right that Design Patterns teaches people to do this, because the world is full of programmers who are forced to use C++ and Java, and they need all the help they can get to work around the defects of those languages. If those people need help, that's fine. The problem is with the philosophical stance of the movement. Instead of seeing the use of design patterns as valuable in itself, it should be widely recognized that each design pattern is an expression of the failure of the source language.
+
+If the Design Patterns movement had been popular in the 1980's, we wouldn't even have C++ or Java; we would still be implementing Object-Oriented Classes in C with structs, and the argument would go that since programmers were forced to use C anyway, we should at least help them as much as possible. But the way to provide as much help as possible was not to train people to habitually implement Object-Oriented Classes when necessary; it was to develop languages like C++ and Java that had this pattern built in, so that programmers could concentrate on using OOP style instead of on implementing it.
+
+As a result of ideas described above I want to recognize two rules of using patterns:
+
+\begin{itemize}
+	\item Integration of design patterns to form pattern languages.
+	\item Integration with current software development methods and software process models.
+\end{itemize}
+
+But here we have an interesting controversion: if we will try to add patterns implementation to language than we will definitely tend to create very heavy and messed multi-paradigm languages. Why?
+
+As we said before, the patterns usually represent construction which belongs to different paradigm and we have to emulate it in current language. We have already examples of such languages: JavaScript, C\#, Scala.
+
+But at this stage we definitely should understand that we will pay for this multiparadigming by complexity, very different implentations of same thing by different developers and mess in maintaining. It is obvious that some developers would tend to realize some feature in more closer to their habits way. And if only language will allow to do that not in one way - we will have mess. That's why it is horrible to support/read JavaScript code written by different developers. That's why Java is de-facto monopolistic languages in today's enterprize development. Because it is strict and allows us to do things only by objects and this code could be easily readable and checked by static analysis tools.
+
+So what we would do? To include patterns to language and make it multi-paradigmic which means to have yet another dead unsupportable monster or to use pure languages like pure functional or OO and to proceed to emulate features we need with patterns? There is no definite unanimous answer.
+
+I would rather suggest completely different alternative approach, which is the most valuable discover in my work as I think and here we go.
+
+I think we have to avoid usage of monsterious and unpredictable multi-paradigmal languages but we should try to develop multi-language projects. We should not reinvent the wheel - we have already this approach working in other kinds of human activity. For example - army. We do not have universal soldiers which could drive an airplane and tank perfect simultaniously. Each kind of troops should do it's work and do it perfectly well. As well we do have different positions in companies and different hammers to break walls and to repair clocks. So why having this experience gathered during centures of human activity we are treying to use same language to implement all kinds of actions and abstractions?!
+
+We MUST AVOID doing that. We should implement parts of application or modules which are used to transfer data and change it in one language(OO or Domain-Specific, DSL) and services and actions in another (Functional). Bad examples of mix - ORM(Object-Relational Mapping) and Monads in Functional languages which break rule to not have side effects. The best existing example of such separation - set of languages for JVM platform. We can use Java OO features to create objects and to use Jaskell or JErlang or Closure to use operate with this objects. Another example - SpringFramework support for dynamic languages. It does the same idea like one implemented before. The only thing we should care about is that we need to make OO data structures immutable and cloneable(like Prototype) to be able to use all the power of pure functional scalability.
+
+%Functional programming describes only the operations to be performed on the inputs to the programs, without use of temporary variables to store intermediate results. The emphasis is to capture "what and why" rather than the "how." It emphasizes the definition of functions rather than the implementation of state machines, in contrast to procedural programming, which emphasizes execution of sequential commands.
+
+%That's why large-scale knowledge management applications benefit greatly from using a functional programming style as it simplifies development.
+
+\section{Refactoring to Patterns}
+
+The second part of my work was about attempt to write required software in functional language and to refactor it introducing patterns discovered before.
+
+Analyzing results I want to admit that refactoring using design patterns is a powerful approach to prepare application for new features development. It's benefit depends on at least two factors, mainly the effort required in the refactoring and how effective it is. 
+
+For instance, the benefit would be small if too much effort is required to translate a program correctly into a refactored form. A measure of effectiveness is the maintainers' performance, which can be affected by their work experience, in realizing the changes. So program refactoring for adding additional patterns is also beneficial regardless of the work experience of the maintainers.
+
+Patterns help to alleviate software complexity at several phases in the software lifecycle. Although patterns are not a software development method or process, they complement existing methods and processes. For instance, patterns help to bridge the abstractions in the domain analysis and architectural design phases with the concrete realizations of these abstractions in the implementation and maintenance phases. In the analysis and design phases, patterns help to guide developers in selecting from software architectures that have proven to be successful. In the implementation and maintenance phases, they help document the strategic properties of software systems at a level higher than source code and models of individual software modules.
+
+At the end whant to make a guess that as now much of the existing literature on patterns is organized as design pattern catalogs and these catalogs represent a collection of relatively independent solutions to common design problems - more experience is gained using these patterns, developers and authors will increasingly integrate groups of related patterns to form pattern languages. These pattern languages will encompass a family of related patterns that cover particular domains and disciplines ranging from concurrency, distribution, organizational design, software reuse, real-time systems, business and electronic commerce, and human interface design.

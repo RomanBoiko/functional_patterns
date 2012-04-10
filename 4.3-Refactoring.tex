@@ -1,0 +1,151 @@
+%\chapter{Refactoring}
+
+
+% \section{Composing Methods}
+% A large part of refactoring is composing methods to package code properly. Almost all the time the problems come from methods that are too long. Long methods are troublesome because they often contain lots of information, which gets buried by the complex logic that usually gets dragged in.
+
+% \begin{itemize}
+% 	\item Extract Method
+% 	\item Inline Method
+% 	\item Inline Temp
+% 	\item Introduce Explaining Variable
+% 	\item Remove Assignments to Parameters
+% 	\item Replace Method with Method Object
+% 	\item Replace Temp with Query
+% 	\item Split Temporary Variable
+% 	\item Substitute Algorithm
+% \end{itemize}
+
+% \section{Moving Features Between Objects}
+% One of the most fundamental, if not the fundamental, decision in object design is deciding where to put responsibilities. So, this set of refactorings is all about object’s responsibilities.
+
+% \begin{itemize}
+% 	\item Extract Class
+% 	\item Hide Delegate
+% 	\item Inline Class
+% 	\item Introduce Foreign Method
+% 	\item Introduce Local Extension
+% 	\item Move Field
+% 	\item Move Method
+% 	\item Remove Middle Man
+% \end{itemize}
+
+% \section{Organizing Data}
+% In this chapter we’ll discuss several refactorings that make working with data easier.
+
+% \begin{itemize}
+% 	\item Change Bidirectional Association to Unidirectional
+% 	\item Change Reference to Value
+% 	\item Change Unidirectional Association to Bidirectional
+% 	\item Change Value to Reference
+% 	\item Duplicate Observed Data
+% 	\item Encapsulate Collection
+% 	\item Encapsulate Field
+% 	\item Replace Array with Object
+% 	\item Replace Data Value with Object
+% 	\item Replace Magic Number with Symbolic Constant
+% 	\item Replace Record with Data Class
+% 	\item Replace Subclass with Fields
+% 	\item Replace Type Code with Class
+% 	\item Replace Type Code with State/Strategy
+% 	\item Replace Type Code with Subclasses
+% 	\item Self Encapsulate Field
+% \end{itemize}
+
+% \section{Simplifying Conditional Expressions}
+% Conditional logic has a way of getting tricky, so here are a number of refactorings you can use to simplify it.
+
+% \begin{itemize}
+% 	\item Consolidate Conditional Expression
+% 	\item Consolidate Duplicate Conditional Fragments
+% 	\item Decompose Conditional
+% 	\item Introduce Assertion
+% 	\item Introduce Null Object
+% 	\item Remove Control Flag
+% 	\item Replace Conditional with Polymorphism
+% 	\item Replace Nested Conditional with Guard Clauses
+% \end{itemize}
+
+% \section{Making Method Calls Simpler}
+% Objects are all about interfaces. Coming up with interfaces that are easy to understand and use is a key skill in developing good object-oriented software. This chapter explores refactorings that make interfaces more straightforward.
+
+% \begin{itemize}
+% 	\item Add Parameter
+% 	\item Encapsulate Downcast
+% 	\item Hide Method
+% 	\item Introduce Parameter Object
+% 	\item Parameterize Method
+% 	\item Preserve Whole Object
+% 	\item Remove Parameter
+% 	\item Remove Setting Method
+% 	\item Rename Method
+% 	\item Replace Constructor with Factory Method
+% 	\item Replace Error Code with Exception
+% 	\item Replace Exception with Test
+% 	\item Replace Parameter with Explicit Methods
+% 	\item Replace Parameter with Method
+% 	\item Separate Query from Modifier
+% \end{itemize}
+
+
+% \section{Dealing with Generalization}
+% Generalization produces its own batch of refactorings, mostly dealing with moving methods around a hierarchy of inheritance.
+
+% \begin{itemize}
+% 	\item Collapse Hierarchy
+% 	\item Extract Interface
+% 	\item Extract Subclass
+% 	\item Extract Superclass
+% 	\item Form Template Method
+% 	\item Pull Up Constructor Body
+% 	\item Pull Up Field
+% 	\item Pull Up Method
+% 	\item Push Down Field
+% 	\item Push Down Method
+% 	\item Replace Delegation with Inheritance
+% 	\item Replace Inheritance with Delegation
+% \end{itemize}
+
+% \section{Big Refactorings}
+% The preceding chapters present the individual "moves" of refactoring. What is missing is a sense of the whole "game." You are refactoring to some purpose, not just to avoid making progress (at least usually you are refactoring to some purpose). What does the whole game look like?
+
+% \begin{itemize}
+% 	\item Convert Procedural Design to Objects
+% 	\item Extract Hierarchy
+% 	\item Separate Domain from Presentation
+% 	\item Tease Apart Inheritance
+% 	\item The Nature of the Game
+% \end{itemize}
+
+
+
+
+
+%\section{PURE FUNCTIONAL}
+
+%14-Proxy: replace eager evaluation with lazy one for expensive calculations
+%REPLACE CONDITIONS WITH MATCHING
+%\begin{verbatim}
+%ast([BS, OL, A, OR, BE | T]) ->
+%    if
+%        ([BS]=="(") and ([BE]==")") -> 
+%            {LeftOperand, _}=string:to_integer([OL]),
+%            {RightOperand, _}=string:to_integer([OR]),
+%            {LeftOperand, [A], RightOperand};
+%        [OR]=="("   -> 
+%            {LeftOperand, _}=string:to_integer([OL]),
+%            {LeftOperand, [A], ast(lists:concat([[OR], [BE], T]))};
+%        true -> err
+%    end.
+
+
+
+%ast([BS, OL, A, OR, BE | T]) when ([BS]=="(") and ([BE]==")") ->
+%    {LeftOperand, _}=string:to_integer([OL]),
+%    {RightOperand, _}=string:to_integer([OR]),
+%    {LeftOperand, [A], RightOperand};
+%    
+%ast([BS, OL, A, OR, BE | T]) when [OR]=="(" ->
+%    {LeftOperand, _}=string:to_integer([OL]),
+%    {LeftOperand, [A], ast(lists:concat([[OR], [BE], T]))}.
+%\end{verbatim}

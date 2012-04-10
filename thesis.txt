@@ -1,0 +1,40 @@
+===MASTER THESIS "Design Patterns And Refactoring in Functional Languages"===
+
+THESIS PROPOSAL
+(1) a statement of the problem to be studied,
+(2) previous work on the problem
+(3) the software requirements
+(4) the goals of the study
+(5) an outline of the proposed work with a set of milestones
+(6) a bibliography. 
+
+VALUABLE:
+1,6,15,17,18,19,21
+http://debasishg.blogspot.com/2008/11/design-patterns-cult-to-blame.html!!!!!
+
+ERLANG STYLES
+http://chalmersmt.googlecode.com/svn-history/r113/trunk/latex/MasterThesisTemplate/MasterThesis.tex
+
+
+howtowrite:
+http://sparrowpapers.com/resources/thesis_writing_articles/
+
+Both quantitative abd qualitative method were applied - was made a try to not only mention FP-specific patterns but also
+The study/survey/thesis/questionnaire/opinion poll...examined, inspected, focused on, was conducted, carried out, sent out, administered
+
+==GOALS==
+- to collect in one research knowledge and experience of FP programmers as set of design and integration patterns
+- to try to apply mathematical theory to the most "mathematical" programming paradigm with aim to create common templates/design solutions
+- to analyse ready patterns's performance. Functional code optimisation
+- functional code refactoring using patterns
+- comparison of resulted patterns with ones from ObjectOriented paradigm
+
+(c) Roman Boiko, <boiko.roman@gmail.com>
+
+
+MATHEMATICS:
+http://en.wikipedia.org/wiki/Catamorphism
+http://en.wikipedia.org/wiki/Fold_%28higher-order_function%29
+
+http://en.wikipedia.org/wiki/Functional_programming:
+"Functional programming in non-functional languages"

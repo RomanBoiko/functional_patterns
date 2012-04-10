@@ -1,0 +1,78 @@
+\chapter{Pure Functional Patterns}
+\label{chap:functional_patterns}
+
+\section{Intro}
+
+In order to find out patterns and general rules for development using functional approach I tried to use mathematical theory and fundamental principles to be able to prove the concept.
+
+So the main thesis statements for this chapter where recognized as following:
+
+\begin{itemize}
+	\item Plato: "The universe is described with mathematical laws. Can all of the phenomena of our universe be described by mathematics?". Functional paradigm is the closest to mathematics. So it can be generalised and defined with patterns(mathematical laws) in the most natural and straightforward way;
+	\item So Algorithms can be optimized due to mathematics theoretical rules
+	\item We consider, that every variable in FP is final and constant. Since every symbol is non-mutable we cannot change the state of anything. Function can never cause side effects(purely functional function (or expression) have no memory or I/O side effects). But in real life we should have them anyway(I/O, persistance to DB, HTTP connections, ...)
+	\item Higher Order Functions as superset of functions
+	\item Basic wonderful abilities of FP, which could be used in patterns description:
+	\begin{itemize}
+		\item Recursion (tail recursion particularly)
+		\item Currying: the process of transforming a function that takes multiple arguments into a function that takes just a single argument and returns another function if any arguments are still needed.
+		\item First-class functions (language supports constructing new functions during the execution of a program, storing them in data structures, passing them as arguments to other functions, and returning them as the values of other functions)
+		\item Lazy Evaluation of functions (technique of delaying a computation until the result is required)- i.e for concurrent calls and optimization in conditional clauses
+		\item Continuation (holds an instance of a computational process due to a given point in the process's execution)
+		\item Pattern Matching (the act of checking some sequence of tokens for the presence of the constituents of some pattern)
+		\item Closures (a first-class function with free variables that are bound  in the lexical environment. Such a function is said to be "closed over" its free variables)
+		\item Monads(vice versa - pattern in FP) - a design pattern for "dealing with global state" (simple in OOP languages, so no equivalent design pattern exists there). In (pure) functional languages, side effects and mutable state are impossible, unless you work around it with the monad "design pattern", or any of the other methods for allowing the same thing.
+	\end{itemize}
+\end{itemize}
+
+
+
+%\section{Monads}
+%http://en.wikipedia.org/wiki/Monad\_(functional\_programming)
+%http://www.rabbitmq.com/blog/2011/05/17/can-you-hear-the-drums-erlando/
+
+%\section{Monoids}
+%http://en.wikipedia.org/wiki/Free\_monoid
+%http://en.wikipedia.org/wiki/Monoid
+
+\section{Transactional Computation}
+
+Each function is allowed to abort the computation:
+
+\erllisting{code/F_MonadicTransactions.erl}
+
+
+\section{Catamorphism and Anamorphism}
+
+Catamorphism is a generalization of the folds on lists known from functional programming to arbitrary algebraic data types that can be described as initial algebras.
+
+Anamorphism is a kind of generic function that can corecursively construct a result of a certain type and which is parameterized by functions that determine what the next single step of the construction is.
+
+Examples would be shown as part of hylomorphic pattern in next section.
+
+\section{Hylomorphism}
+
+Hylomorphism is a recursive function, corresponding to the composition of an anamorphism (which first builds a set of results; also known as 'unfolding') and a catamorphism (which then folds these results into a final return value). Fusion of these two recursive computations into a single recursive pattern then avoids building the intermediate data structure. This is a particular form of the optimizing program transformation techniques. The categorical dual of a hylomorphism is called a metamorphism, and is a catamorphism followed by an anamorphism~\cite{res25}
+    \erllisting{code/F_Hylomorphism.erl}
+
+
+
+%http://en.wikipedia.org/wiki/Catamorphism
+%http://en.wikipedia.org/wiki/Anamorphism
+%Fold and Unfold
+%http://en.wikipedia.org/wiki/Fold\_(higher-order\_function)
+%http://en.wikipedia.org/wiki/Map\_(higher-order\_function)
+
+Fold is one of the most commonly used catamorphisms in functional languages. Erlang has foldl and foldr, which are used very frequently to encapsulate some of the very common patterns of computation as higher order operators instead of using recursion directly. Fold's dual is unfold (anamorphism), which unfortunately does not enjoy an equal popularity amongst functional programmers. While fold is a recursion operator that consumes a collection, it's dual unfold encapsulates a common pattern that produces streams / collections from a single object.
+
+\section{Other FP patterns}
+%http://en.wikipedia.org/wiki/Convolution\_(computer\_science)
+Other FP patterns, which were identified but not covered in this thesis, are Convolution (function which maps a tuple of sequences into a sequence of tuples), Recursions(particularly Tail Recursion) and Monads(which I need to define anyway as it is basic pattern to deal with state in FP).
+
+Monad is a programming structure that represents computations. Monads are a kind of abstract data type constructor that encapsulate program logic instead of data in the domain model. A defined monad allows the programmer to chain actions together and build different pipelines that process data in various steps, in which each action is decorated with additional processing rules provided by the monad; for example a sequence of arithmetic operations can be controlled to avoid division by zero in intermediate results. Programs written in functional style can make use of monads to structure procedures that include sequenced operations, or to define some arbitrary control flows (like handling concurrency, continuations, side effects such as input/output, or exceptions).
+
+%http://en.wikipedia.org/wiki/Recursion\_(computer\_science)
+%http://en.wikipedia.org/wiki/Tail\_recursion
+%http://en.wikipedia.org/wiki/Lambda\_calculus
+%http://matt.might.net/articles/implementation-of-recursive-fixed-point-y-combinator-in-javascript-for-memoization/
+%http://amtal.github.com/2011/08/01/why-use-erlang.html

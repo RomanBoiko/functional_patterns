@@ -1,0 +1,37 @@
+\documentclass[dvips,letterpaper,12pt]{report}
+
+\usepackage{thesis}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+
+\thesistitle
+	{Design Patterns And Refactoring in Functional Languages}
+	{Roman Boiko}
+	{(Software for Automated Systems)}
+	{Master of Science}
+	{Faculty of Computer Sciences}
+
+\include{1-Abstract}
+\include{contents}
+\include{tables}
+%\include{figures}
+
+\pagenumbering{arabic}
+\include{2-Introduction}
+\include{3-ReviewOfTheCurrentState}
+\include{4.1-PatternsOO}
+\include{4.2-PatternsFP}
+\include{4.3-Refactoring}
+\include{4.3-Project}
+\include{5-Conclusion}
+
+
+\include{bib}
+
+\appendix
+\include{apdxa}
+
+\end{document}
