@@ -1,0 +1,25 @@
+===MASTER THESIS "Design Patterns And Refactoring in Functional Languages"===
+
+==GOALS==
+- to collect in one research knowledge and experience of FP programmers as set of design and integration patterns
+- to try to apply mathematical theory to the most "mathematical" programming paradigm with aim to create common templates/design solutions
+- to analyse ready patterns's performance. Functional code optimisation
+- functional code refactoring using patterns
+- comparison of resulted patterns with ones from ObjectOriented paradigm
+
+==Implementation==
+- examples: Erlang
+- printable version: LaTeX
+
+(c) Roman Boiko, boiko.roman@gmail.com
+
+
+==GIT==
+mkdir functional_patterns
+cd functional_patterns
+git init
+touch README
+git add README
+git commit -m 'comment'
+git remote add origin git@github.com:RomanBoiko/functional_patterns.git
+git push -u origin master
